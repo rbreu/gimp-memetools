@@ -4,15 +4,14 @@ import gimpfu
 from gimpfu import gimp, pdb
 
 
-def python_animation_from_videocaps(image, drawable, fps=25, reduce_by=6,
+def python_animation_from_videocaps(image, drawable, fps=24, reduce_by=4,
                                     text_mode='none', text_layer=None):
     """The plugin's main function."""
 
     gimpfu.gimp.progress_init('Working on frames...')
 
+    # Reduce frames
     delay = int(1000 / fps * reduce_by)
-    print(delay)
-    to_delete = []
     for i, layer in enumerate(image.layers[:]):
         if i % reduce_by == 0:
             layer.name = '%s (%sms)' % (layer.name, delay)
@@ -21,7 +20,17 @@ def python_animation_from_videocaps(image, drawable, fps=25, reduce_by=6,
 
     gimpfu.gimp.progress_update(0.5)
 
-    # try optimize filters!
+    # Add text
+    if text_mode != 'none' and text_layer.image == image:
+        pdb.gimp_layer_resize_to_image_size(text_layer)
+        pdb.gimp_edit_copy(text_layer)
+        layers = image.layers[::2] if text_mode == 'blink' else image.layers
+        for i, layer in enumerate(layers):
+            selection = pdb.gimp_edit_paste(layer, True)
+            pdb.gimp_floating_sel_anchor(selection)
+        pdb.gimp_image_remove_layer(image, text_layer)
+
+    gimpfu.gimp.progress_update(1)
 
 
 gimpfu.register(
@@ -30,7 +39,7 @@ gimpfu.register(
     'Helps preparing an animation from video screencaps.',
     'Rebecca Breu',
     '2016 Rebecca Breu, GPLv3',
-    '12 March 2016',
+    '13 March 2016',
     '<Image>/Filters/Animation/Animators/From video screencaps...',
     '*',
     [
