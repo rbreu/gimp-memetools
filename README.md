@@ -1,6 +1,6 @@
 # gimp-memetools
 
-Collection of GIM plugins that helbs with for putting texts on photos,
+Collection of GIM plugins that helps with putting texts on photos,
 and making animated gifs from videos.
 
 
@@ -17,7 +17,7 @@ On Mac: `$HOME/Library/Application Support/Gimp/2.8/plug-ins/`
 On Windows: Find your GIMP installation folder (commonly in `Program
 Files`), then `lib\gimp\2.8\plug-ins\`
 
-On Linux and Mac, make sure to give the file executable rights:
+On Linux and Mac, make sure to give the files executable rights:
 
 ```
 $ chmod +x /path/to/text_border.py
@@ -53,8 +53,9 @@ players allow you to take screencaps or ranges of screencaps with a
 keystroke, those are extremely helpful.
 
 When you have your screencaps, open GIMP, go to *"File -> Open as
-Layers"* and select your screencaps. Make sure you don't have any
-other GIMP files open when you do this.
+Layers"* and select all the screencaps you want to have in the
+animation. Make sure you don't have any other GIMP files open when you
+do this.
 
 *Optional*: If you want to add text or similar stuff to your gif, add
 it now and make sure it stays on its own layer. The text_border plugin
@@ -62,7 +63,7 @@ might be useful for this. ;)
 
 Save your image, because the plugin doesn't have a convenient undo operation.
 
-Now go to *Filters -> Animation -> From video screencaps"*.
+Now go to *"Filters -> Animation -> From video screencaps"*.
 
 ![Dialogue Window](images/animation_from_videocaps.png "Dialogue Window")
 
@@ -93,7 +94,7 @@ and choose a file name that ends in `.gif`.
 
 ![GIF export](images/gif_export.png "GIF export")
 
-Make that the option *As Animation* is checked. Then make sure that
+Make sure that the option *As Animation* is checked. Then make sure that
 the options "Use delay entered above for all frames" and "Use disposal
 entered above for all frames" are **not** checked since that would
 override the frame rate calculations the plugin did.
